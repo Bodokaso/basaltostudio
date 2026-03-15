@@ -1,0 +1,166 @@
+:root {
+  --bs-base: #f5f3ef;
+  --bs-charcoal: #2a2826;
+  --bs-mid: #9e9a92;
+  --bs-border: #c8c4bc;
+  --bs-amber: #e8c97a;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  background-color: var(--bs-base);
+  color: var(--bs-charcoal);
+}
+
+.bs-section-tag {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--bs-mid);
+  text-transform: uppercase;
+  line-height: 1.6;
+}
+
+.bs-comment {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--bs-border);
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.bs-index-num {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--bs-border);
+}
+
+.bs-divider-label {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bs-border);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--bs-border);
+  margin-bottom: 20px;
+}
+
+.bs-btn {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bs-charcoal);
+  border: 1px solid var(--bs-charcoal);
+  padding: 9px 20px;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.bs-btn:hover {
+  background: var(--bs-charcoal);
+  color: var(--bs-base);
+}
+
+.bs-btn-secondary {
+  border-color: var(--bs-border);
+  color: var(--bs-mid);
+}
+
+.bs-btn-secondary:hover {
+  border-color: var(--bs-charcoal);
+  color: var(--bs-charcoal);
+  background: transparent;
+}
+
+.bs-sidebar {
+  padding: 32px 20px;
+  border-right: 1px solid var(--bs-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bs-slit {
+  width: 3px;
+  border-right: 1px solid var(--bs-border);
+  position: relative;
+}
+
+.bs-slit-amber::after {
+  content: '';
+  position: absolute;
+  top: 40px;
+  bottom: 40px;
+  left: 1px;
+  width: 2px;
+  background: var(--bs-amber);
+}
+
+/* ============================================
+   RESPONSIVE — mobile first breakpoints
+   the grid collapses, the bones remain
+   ============================================ */
+
+@media (max-width: 768px) {
+
+  /* collapse all 3-column section grids to single column */
+  [style*="grid-template-columns: 180px 3px 1fr"],
+  [style*="grid-template-columns: 180px 1fr 1fr"],
+  [style*="grid-template-columns: 180px 1fr"] {
+    display: block !important;
+  }
+
+  /* hide the sidebar and slit on mobile */
+  .bs-sidebar {
+    display: none !important;
+  }
+
+  .bs-slit,
+  .bs-slit-amber {
+    display: none !important;
+  }
+
+  /* stack inner 3-col grids (pain points, services, process) */
+  .bs-inner-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* stack inner 2-col grids (project, contact) */
+  .bs-inner-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* remove right borders on stacked inner cells */
+  .bs-inner-grid > div,
+  .bs-inner-grid-2 > div {
+    border-right: none !important;
+    border-bottom: 1px solid var(--bs-border);
+  }
+
+  .bs-inner-grid > div:last-child,
+  .bs-inner-grid-2 > div:last-child {
+    border-bottom: none;
+  }
+
+  /* nav mobile */
+  .bs-nav-mobile {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .bs-nav-center-hide {
+    display: none !important;
+  }
+
+  .bs-section-body-mobile {
+    padding: 24px 20px !important;
+  }
+}
