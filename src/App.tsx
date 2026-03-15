@@ -14,15 +14,15 @@ function App() {
   return (
     <div style={{ minHeight: '100vh' }}>
       <Nav />
-      <Hero />
-      <ProofBar />
-      <Problema />
-      <Servicios />
-      <Proyecto />
-      <Proceso />
-      <Testimonio />
-      <Contacto />
-      <Footer />
+      <div className="bs-section-border" style={{ background: 'var(--bs-base)' }}><Hero /></div>
+      <div className="bs-section-border" style={{ background: 'var(--bs-base-alt)' }}><ProofBar /></div>
+      <div className="bs-section-border" style={{ background: 'var(--bs-base)' }}><Problema /></div>
+      <div className="bs-section-border" style={{ background: 'var(--bs-base-alt)' }}><Servicios /></div>
+      <div className="bs-section-border" style={{ background: 'var(--bs-base)' }}><Proyecto /></div>
+      <div className="bs-section-border" style={{ background: 'var(--bs-base-alt)' }}><Proceso /></div>
+      <div className="bs-section-border" style={{ background: 'var(--bs-base)' }}><Testimonio /></div>
+      <div className="bs-section-border" style={{ background: 'var(--bs-base-alt)' }}><Contacto /></div>
+      <div style={{ background: 'var(--bs-base)' }}><Footer /></div>
     </div>
   )
 }

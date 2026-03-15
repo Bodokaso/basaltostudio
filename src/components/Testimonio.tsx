@@ -3,7 +3,7 @@ export default function Testimonio() {
     <div style={{
       display: 'grid',
       gridTemplateColumns: '180px 3px 1fr',
-      borderBottom: '1px solid var(--bs-border)',
+      borderBottom: '2px solid var(--bs-border-h)',
     }}>
       <div className="bs-sidebar">
         <div className="bs-index-num">§ 06</div>
@@ -14,7 +14,7 @@ export default function Testimonio() {
 
       <div className="bs-slit bs-slit-amber" />
 
-      <div className="bs-section-body-mobile" style={{ padding: '40px' }}>
+      <div className="bs-section-body-mobile" style={{ padding: '24px 40px 40px' }}>
         <div className="bs-divider-label">— Testimonio —</div>
         <div style={{
           padding: '48px 40px',

@@ -5,8 +5,8 @@ export default function Hero() {
     <div style={{
       display: 'grid',
       gridTemplateColumns: '180px 3px 1fr',
-      minHeight: '340px',
-      borderBottom: '1px solid var(--bs-border)',
+      minHeight: 'auto',
+      borderBottom: '2px solid var(--bs-border-h)',
     }}>
       <div className="bs-sidebar" style={{ justifyContent: 'space-between' }}>
         <div>
@@ -23,7 +23,7 @@ export default function Hero() {
       <div className="bs-slit bs-slit-amber" />
 
       <div className="bs-section-body-mobile" style={{
-        padding: '48px 40px 40px',
+        padding: '32px 40px 32px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',

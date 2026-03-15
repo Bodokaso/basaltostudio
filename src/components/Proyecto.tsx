@@ -9,7 +9,7 @@ export default function Proyecto() {
       style={{
         display: 'grid',
         gridTemplateColumns: '180px 3px 1fr',
-        borderBottom: '1px solid var(--bs-border)',
+        borderBottom: '2px solid var(--bs-border-h)',
       }}
     >
       <div className="bs-sidebar" style={{ justifyContent: 'space-between' }}>
@@ -26,15 +26,15 @@ export default function Proyecto() {
 
       <div className="bs-slit bs-slit-amber" />
 
-      <div className="bs-section-body-mobile" style={{ padding: '40px' }}>
+      <div className="bs-section-body-mobile" style={{ padding: '24px 40px 40px' }}>
         <div className="bs-divider-label">— Proyecto —</div>
         <div className="bs-inner-grid-2" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          border: '1px solid var(--bs-border)',
+          border: '1px solid var(--bs-border-v)',
         }}>
           <div style={{
-            borderRight: '1px solid var(--bs-border)',
+            borderRight: '1px solid var(--bs-border-v)',
             background: 'var(--bs-charcoal)',
             minHeight: '220px',
             display: 'flex',
@@ -88,7 +88,7 @@ export default function Proyecto() {
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
                   color: 'var(--bs-mid)',
-                  border: '1px solid var(--bs-border)',
+                  border: '1px solid var(--bs-border-v)',
                   padding: '3px 8px',
                 }}>
                   {tag}

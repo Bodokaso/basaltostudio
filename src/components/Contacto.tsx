@@ -34,7 +34,7 @@ export default function Contacto() {
     letterSpacing: '0.06em',
     color: 'var(--bs-charcoal)',
     background: 'var(--bs-base)',
-    border: '1px solid var(--bs-border)',
+    border: '1px solid var(--bs-border-v)',
     borderRadius: 0,
     padding: '10px 12px',
     width: '100%',
@@ -64,7 +64,7 @@ export default function Contacto() {
       style={{
         display: 'grid',
         gridTemplateColumns: '180px 3px 1fr',
-        borderBottom: '1px solid var(--bs-border)',
+        borderBottom: '2px solid var(--bs-border-h)',
       }}
     >
       <div className="bs-sidebar" style={{ justifyContent: 'space-between' }}>
@@ -81,17 +81,17 @@ export default function Contacto() {
 
       <div className="bs-slit" />
 
-      <div className="bs-section-body-mobile" style={{ padding: '40px' }}>
+      <div className="bs-section-body-mobile" style={{ padding: '24px 40px 40px' }}>
         <div className="bs-divider-label">— ¿Listo para crecer? —</div>
 
         <div className="bs-inner-grid-2" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          border: '1px solid var(--bs-border)',
+          border: '1px solid var(--bs-border-v)',
         }}>
           <div style={{
             padding: '32px',
-            borderRight: '1px solid var(--bs-border)',
+            borderRight: '1px solid var(--bs-border-v)',
           }}>
             <div style={{ marginBottom: '24px' }}>
               <div style={labelStyle}>Ubicación</div>

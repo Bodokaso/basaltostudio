@@ -5,7 +5,7 @@ export default function Proceso() {
     <div style={{
       display: 'grid',
       gridTemplateColumns: '180px 3px 1fr',
-      borderBottom: '1px solid var(--bs-border)',
+      borderBottom: '2px solid var(--bs-border-h)',
     }}>
       <div className="bs-sidebar">
         <div className="bs-index-num">§ 05</div>
@@ -16,22 +16,22 @@ export default function Proceso() {
 
       <div className="bs-slit" />
 
-      <div className="bs-section-body-mobile" style={{ padding: '40px' }}>
+      <div className="bs-section-body-mobile" style={{ padding: '24px 40px 40px' }}>
         <div className="bs-divider-label">— Cómo funciona —</div>
         <div className="bs-inner-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr',
-          border: '1px solid var(--bs-border)',
+          border: '1px solid var(--bs-border-v)',
         }}>
           {pasosProceso.map((paso, i) => (
             <div key={paso.numero} style={{
               padding: '28px 24px',
-              borderRight: i < pasosProceso.length - 1 ? '1px solid var(--bs-border)' : 'none',
+              borderRight: i < pasosProceso.length - 1 ? '1px solid var(--bs-border-v)' : 'none',
             }}>
               <div style={{
                 fontSize: '10px',
                 letterSpacing: '0.14em',
-                color: 'var(--bs-border)',
+                color: 'var(--bs-border-v)',
                 textTransform: 'uppercase',
                 marginBottom: '12px',
               }}>

@@ -3,11 +3,11 @@ export default function Footer() {
     <footer style={{
       display: 'grid',
       gridTemplateColumns: '180px 1fr 1fr',
-      borderTop: '1px solid var(--bs-border)',
+      borderTop: '1px solid var(--bs-border-h)',
     }}>
       <div style={{
         padding: '16px 20px',
-        borderRight: '1px solid var(--bs-border)',
+        borderRight: '1px solid var(--bs-border-v)',
       }}>
         <div style={{
           fontSize: '10px',
@@ -25,7 +25,7 @@ export default function Footer() {
         fontSize: '10px',
         letterSpacing: '0.1em',
         color: 'var(--bs-mid)',
-        borderRight: '1px solid var(--bs-border)',
+        borderRight: '1px solid var(--bs-border-v)',
         display: 'flex',
         alignItems: 'center',
       }}>

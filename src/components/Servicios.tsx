@@ -7,7 +7,7 @@ export default function Servicios() {
       style={{
         display: 'grid',
         gridTemplateColumns: '180px 3px 1fr',
-        borderBottom: '1px solid var(--bs-border)',
+        borderBottom: '2px solid var(--bs-border-h)',
       }}
     >
       <div className="bs-sidebar">
@@ -19,17 +19,17 @@ export default function Servicios() {
 
       <div className="bs-slit" />
 
-      <div className="bs-section-body-mobile" style={{ padding: '40px' }}>
+      <div className="bs-section-body-mobile" style={{ padding: '24px 40px 40px' }}>
         <div className="bs-divider-label">— Servicios —</div>
         <div className="bs-inner-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr 1fr',
-          border: '1px solid var(--bs-border)',
+          border: '1px solid var(--bs-border-v)',
         }}>
           {servicios.map((servicio, i) => (
             <div key={servicio.id} style={{
               padding: '28px 24px',
-              borderRight: i < servicios.length - 1 ? '1px solid var(--bs-border)' : 'none',
+              borderRight: i < servicios.length - 1 ? '1px solid var(--bs-border-v)' : 'none',
               borderTop: '2px solid var(--bs-amber)',
             }}>
               <div style={{

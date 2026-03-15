@@ -5,11 +5,11 @@ export default function Nav() {
     <nav className="bs-nav-mobile" style={{
       display: 'grid',
       gridTemplateColumns: '180px 1fr 1fr',
-      borderBottom: '1px solid var(--bs-border)',
+      borderBottom: '2px solid var(--bs-border-h)',
     }}>
       <div style={{
         padding: '14px 20px',
-        borderRight: '1px solid var(--bs-border)',
+        borderRight: '1px solid var(--bs-border-v)',
       }}>
         <div style={{
           fontSize: '11px',
@@ -27,7 +27,7 @@ export default function Nav() {
 
       <div className="bs-nav-center-hide" style={{
         padding: '14px 20px',
-        borderRight: '1px solid var(--bs-border)',
+        borderRight: '1px solid var(--bs-border-v)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

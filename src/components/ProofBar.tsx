@@ -10,11 +10,11 @@ export default function ProofBar() {
     <div style={{
       display: 'grid',
       gridTemplateColumns: '180px 1fr',
-      borderBottom: '1px solid var(--bs-border)',
+      borderBottom: '2px solid var(--bs-border-h)',
     }}>
       <div style={{
         padding: '16px 20px',
-        borderRight: '1px solid var(--bs-border)',
+        borderRight: '1px solid var(--bs-border-v)',
         display: 'flex',
         alignItems: 'center',
       }}>
