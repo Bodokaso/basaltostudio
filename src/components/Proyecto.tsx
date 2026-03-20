@@ -42,7 +42,24 @@ export default function Proyecto() {
             justifyContent: 'space-between',
             padding: '24px',
             position: 'relative',
+            overflow: 'hidden',
           }}>
+            <iframe
+              src={proyecto.url}
+              title={proyecto.cliente}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '200%',
+                height: '200%',
+                border: 'none',
+                transform: 'scale(0.5)',
+                transformOrigin: '0 0',
+                pointerEvents: 'none',
+                opacity: 0.85,
+              }}
+            />
             <div className="bs-comment" style={{ color: '#9e9a92' }}>
               /* load-bearing */
             </div>

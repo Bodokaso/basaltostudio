@@ -1,7 +1,8 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { WHATSAPP_URL, FORM_ACCESS_KEY } from '../data/content'
+import { WHATSAPP_URL } from '../data/content'
 
 const schema = z.object({
   nombre: z.string().min(2, 'Nombre requerido'),
@@ -12,19 +13,18 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 export default function Contacto() {
+  const [waCooldown, setWaCooldown] = useState(false)
+  const [waSeconds, setWaSeconds] = useState(0)
+
   const {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<FormData>({ resolver: zodResolver(schema) })
 
-  const onSubmit = async (data: FormData) => {
-    await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ access_key: FORM_ACCESS_KEY, ...data }),
-    })
+  const onSubmit = async (_data: FormData) => {
     reset()
   }
 
@@ -99,21 +99,35 @@ export default function Contacto() {
             </div>
             <div style={{ marginBottom: '24px' }}>
               <div style={labelStyle}>WhatsApp</div>
-              <div style={{ fontSize: '12px', letterSpacing: '0.06em' }}>+1 809-335-0395</div>
+              <div style={{ fontSize: '12px', letterSpacing: '0.06em' }}>+1 809-848-0395</div>
             </div>
             <div style={{ marginBottom: '32px' }}>
               <div style={labelStyle}>Disponibilidad</div>
               <div style={{ fontSize: '12px', letterSpacing: '0.06em' }}>Proyectos nuevos — abierto</div>
             </div>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
               className="bs-btn"
-              style={{ textDecoration: 'none', display: 'inline-block' }}
+              style={{ textDecoration: 'none', display: 'inline-block', cursor: waCooldown ? 'not-allowed' : 'pointer', opacity: waCooldown ? 0.5 : 1 }}
+              disabled={waCooldown}
+              onClick={() => {
+                if (waCooldown) return
+                window.open(WHATSAPP_URL, '_blank')
+                setWaCooldown(true)
+                setWaSeconds(30)
+                const interval = setInterval(() => {
+                  setWaSeconds(prev => {
+                    if (prev <= 1) {
+                      clearInterval(interval)
+                      setWaCooldown(false)
+                      return 0
+                    }
+                    return prev - 1
+                  })
+                }, 1000)
+              }}
             >
-              Escribir por WhatsApp →
-            </a>
+              {waCooldown ? `Espera ${waSeconds}s...` : 'Escribir por WhatsApp →'}
+            </button>
           </div>
 
           <div style={{ padding: '32px' }}>
@@ -142,8 +156,32 @@ export default function Contacto() {
                     {...register('mensaje')}
                     style={{ ...inputStyle, minHeight: '100px', resize: 'vertical' }}
                     placeholder="Cuéntame de tu proyecto..."
+                    maxLength={500}
+                    onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault() }}
+                    onPaste={(e) => {
+                      e.preventDefault()
+                      const text = e.clipboardData.getData('text/plain')
+                        .replace(/[\r\n]+/g, ' ')
+                        .slice(0, 500)
+                      const target = e.currentTarget
+                      const start = target.selectionStart ?? 0
+                      const end = target.selectionEnd ?? 0
+                      const current = target.value
+                      const newVal = (current.slice(0, start) + text + current.slice(end)).slice(0, 500)
+                      target.value = newVal
+                      target.dispatchEvent(new Event('input', { bubbles: true }))
+                    }}
                   />
                   {errors.mensaje && <p style={errorStyle}>{errors.mensaje.message}</p>}
+                  <p style={{
+                    fontSize: '10px',
+                    letterSpacing: '0.06em',
+                    color: 'var(--bs-mid)',
+                    textAlign: 'right',
+                    marginTop: '4px',
+                  }}>
+                    {watch('mensaje')?.length ?? 0} / 500
+                  </p>
                 </div>
                 <button
                   type="submit"

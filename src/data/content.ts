@@ -1,9 +1,8 @@
 import type { Servicio, Proyecto, PasoProceso, PuntoDoloroso } from '../types'
 
-export const WHATSAPP_NUMBER = '18093350395'
+export const WHATSAPP_NUMBER = '18098480395'
 export const WHATSAPP_MESSAGE = 'Hola, me interesa un sitio web para mi negocio.'
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
-export const FORM_ACCESS_KEY = 'PLACEHOLDER_WEB3FORMS_KEY'
 
 export const puntosDolorosos: PuntoDoloroso[] = [
   {
@@ -50,7 +49,7 @@ export const proyectos: Proyecto[] = [
     cliente: 'F MAX RD',
     descripcion:
       'F MAX RD necesitaba llegar a ingenieros y constructoras en todo el país. Construimos un sitio que comunica credibilidad técnica y genera consultas de nuevos clientes.',
-    url: 'https://fmax-rd.vercel.app',
+    url: 'https://fmaxrd.com',
     tags: ['React', 'TypeScript', 'Framer Motion', 'Construcción', 'Santo Domingo'],
   },
 ]

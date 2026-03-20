@@ -8,8 +8,10 @@ export default function Nav() {
       borderBottom: '2px solid var(--bs-border-h)',
     }}>
       <div style={{
-        padding: '14px 20px',
+        padding: '0 20px',
         borderRight: '1px solid var(--bs-border-v)',
+        display: 'flex',
+        alignItems: 'center',
       }}>
         <div style={{
           fontSize: '11px',
@@ -18,10 +20,11 @@ export default function Nav() {
           textTransform: 'uppercase',
           color: 'var(--bs-charcoal)',
         }}>
-          Basalto Studio
-        </div>
-        <div className="bs-comment" style={{ marginTop: '4px' }}>
-          /* web design · Santo Domingo */
+          <img
+            src="/basalto-logo.png"
+            alt="Basalto Studio"
+            style={{ height: '100%', width: 'auto', display: 'block', objectFit: 'contain' }}
+          />
         </div>
       </div>
 
@@ -32,7 +35,10 @@ export default function Nav() {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-        <span className="bs-section-tag">&lt;nav role="studio"&gt;</span>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+          <span className="bs-section-tag">&lt;nav role="studio"&gt;</span>
+          <span className="bs-comment">/* web design · Santo Domingo */</span>
+        </div>
       </div>
 
       <div style={{
