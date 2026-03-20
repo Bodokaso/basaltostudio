@@ -46,7 +46,7 @@ export default function Privacidad() {
             {
               num: '03',
               title: 'Cómo usamos tu información',
-              body: 'Los datos del formulario se utilizan exclusivamente para contactarte en respuesta a tu mensaje. No los usamos para marketing, no los vendemos, no los compartimos con terceros salvo los necesarios para operar el sitio (ver sección 05).',
+              body: 'Los datos del formulario se utilizan exclusivamente para contactarte en respuesta a tu mensaje. No los usamos para marketing, no los vendemos, no los compartimos con terceros.',
             },
             {
               num: '04',
@@ -56,7 +56,7 @@ export default function Privacidad() {
             {
               num: '05',
               title: 'Servicios de terceros',
-              body: 'Este sitio usa Vercel para hosting y Cloudflare para seguridad y distribución de contenido. Ambos pueden procesar datos técnicos de tu visita (dirección IP, tipo de navegador) según sus propias políticas de privacidad. No usamos Google Analytics ni ninguna herramienta de seguimiento de usuarios.',
+              body: 'No usamos Google Analytics ni ninguna herramienta de seguimiento de usuarios.',
             },
             {
               num: '06',
