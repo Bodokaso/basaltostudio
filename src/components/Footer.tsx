@@ -28,8 +28,24 @@ export default function Footer() {
         borderRight: '1px solid var(--bs-border-v)',
         display: 'flex',
         alignItems: 'center',
+        gap: '20px',
       }}>
-        Santo Domingo, República Dominicana — Diseño y desarrollo web
+        <span>Santo Domingo, República Dominicana — Diseño y desarrollo web</span>
+        <a
+          href="/privacidad"
+          style={{
+            color: 'var(--bs-mid)',
+            textDecoration: 'none',
+            whiteSpace: 'nowrap',
+            fontFamily: 'inherit',
+            fontSize: '10px',
+            letterSpacing: '0.1em',
+          }}
+          onMouseEnter={e => e.currentTarget.style.color = 'var(--bs-charcoal)'}
+          onMouseLeave={e => e.currentTarget.style.color = 'var(--bs-mid)'}
+        >
+          Privacidad
+        </a>
       </div>
       <div style={{
         padding: '16px 20px',
