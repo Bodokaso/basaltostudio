@@ -44,44 +44,20 @@ export default function Proyecto() {
             position: 'relative',
             overflow: 'hidden',
           }}>
-            <iframe
-              src={proyecto.url}
-              title={proyecto.cliente}
+            <img
+              src="/fmax-preview.png"
+              alt="F MAX RD"
               style={{
                 position: 'absolute',
                 top: 0,
                 left: 0,
-                width: '200%',
-                height: '200%',
-                border: 'none',
-                transform: 'scale(0.5)',
-                transformOrigin: '0 0',
-                pointerEvents: 'none',
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'top',
                 opacity: 0.85,
               }}
             />
-            <div className="bs-comment" style={{ color: '#9e9a92' }}>
-              /* load-bearing */
-            </div>
-            <div>
-              <div style={{
-                fontSize: '10px',
-                letterSpacing: '0.12em',
-                color: 'var(--bs-amber)',
-                textTransform: 'uppercase',
-              }}>
-                {proyecto.url.replace('https://', '')}
-              </div>
-              <div style={{
-                fontSize: '13px',
-                fontWeight: 700,
-                letterSpacing: '0.1em',
-                color: 'var(--bs-base)',
-                marginTop: '4px',
-              }}>
-                {proyecto.cliente}
-              </div>
-            </div>
           </div>
 
           <div style={{ padding: '24px' }}>
