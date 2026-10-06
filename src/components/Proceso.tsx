@@ -1,62 +1,28 @@
+import Section from './Section'
 import { pasosProceso } from '../data/content'
 
-export default function Proceso() {
+export default function Proceso({ num }: { num: string }) {
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: '180px 3px 1fr',
-      borderBottom: '2px solid var(--bs-border-h)',
-    }}>
-      <div className="bs-sidebar">
-        <div className="bs-index-num">§ 05</div>
-        <div className="bs-section-tag" style={{ marginTop: '8px' }}>
-          &lt;section<br />id="proceso"&gt;
-        </div>
-      </div>
-
-      <div className="bs-slit" />
-
-      <div className="bs-section-body-mobile" style={{ padding: '24px 40px 40px' }}>
-        <div className="bs-divider-label">— Cómo funciona —</div>
-        <div className="bs-inner-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          border: '1px solid var(--bs-border-v)',
-        }}>
-          {pasosProceso.map((paso, i) => (
-            <div key={paso.numero} style={{
-              padding: '28px 24px',
-              borderRight: i < pasosProceso.length - 1 ? '1px solid var(--bs-border-v)' : 'none',
-            }}>
-              <div style={{
-                fontSize: '10px',
-                letterSpacing: '0.14em',
-                color: 'var(--bs-border-v)',
-                textTransform: 'uppercase',
-                marginBottom: '12px',
-              }}>
-                paso {paso.numero} —
-              </div>
-              <div style={{
-                fontSize: '12px',
-                fontWeight: 700,
-                letterSpacing: '0.1em',
-                marginBottom: '10px',
-              }}>
-                {paso.titulo}
-              </div>
-              <p style={{
-                fontSize: '11px',
-                lineHeight: 1.9,
-                color: 'var(--bs-mid)',
-                letterSpacing: '0.04em',
-              }}>
-                {paso.descripcion}
-              </p>
+    <Section
+      id="proceso"
+      num={num}
+      label="Cómo funciona"
+      tag={<>&lt;section<br /> id="proceso"&gt;</>}
+      comment={<>/* tres pasos.<br /> ninguno<br /> es sorpresa. */</>}
+    >
+      <ol className="bs-inner-grid" style={{ listStyle: 'none' }}>
+        {pasosProceso.map((paso) => (
+          <li key={paso.numero} style={{ padding: '28px 24px' }}>
+            <div className="bs-index-num" style={{ textTransform: 'uppercase', marginBottom: '12px' }}>
+              paso {paso.numero} —
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
+            <h3 style={{ fontSize: '13px', fontWeight: 700, letterSpacing: '0.1em', marginBottom: '10px' }}>
+              {paso.titulo}
+            </h3>
+            <p className="bs-copy-soft">{paso.descripcion}</p>
+          </li>
+        ))}
+      </ol>
+    </Section>
   )
 }

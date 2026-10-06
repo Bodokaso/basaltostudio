@@ -1,59 +1,33 @@
+import { Link } from 'react-router-dom'
+import { EMAIL } from '../data/content'
+
+const YEAR = new Date().getFullYear()
+
 export default function Footer() {
+
   return (
-    <footer style={{
-      display: 'grid',
-      gridTemplateColumns: '180px 1fr 1fr',
-      borderTop: '1px solid var(--bs-border-h)',
-    }}>
-      <div style={{
-        padding: '16px 20px',
-        borderRight: '1px solid var(--bs-border-v)',
-      }}>
-        <div style={{
-          fontSize: '10px',
-          fontWeight: 700,
-          letterSpacing: '0.16em',
-          textTransform: 'uppercase',
-          marginBottom: '4px',
-        }}>
+    <footer className="bs-footer">
+      <div className="bs-cell" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '4px' }}>
+        <div className="bs-meta" style={{ fontWeight: 700, letterSpacing: '0.16em', color: 'var(--bs-charcoal)' }}>
           Basalto Studio
         </div>
-        <div className="bs-comment">© 2025</div>
+        <div className="bs-meta" style={{ textTransform: 'none' }}>© {YEAR}</div>
       </div>
-      <div style={{
-        padding: '16px 20px',
-        fontSize: '10px',
-        letterSpacing: '0.1em',
-        color: 'var(--bs-mid)',
-        borderRight: '1px solid var(--bs-border-v)',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '20px',
-      }}>
-        <span>Santo Domingo, República Dominicana — Diseño y desarrollo web</span>
-        <a
-          href="/privacidad"
-          style={{
-            color: 'var(--bs-mid)',
-            textDecoration: 'none',
-            whiteSpace: 'nowrap',
-            fontFamily: 'inherit',
-            fontSize: '10px',
-            letterSpacing: '0.1em',
-          }}
-          onMouseEnter={e => e.currentTarget.style.color = 'var(--bs-charcoal)'}
-          onMouseLeave={e => e.currentTarget.style.color = 'var(--bs-mid)'}
-        >
-          Privacidad
+
+      <div className="bs-cell" style={{ gap: '12px 20px', flexWrap: 'wrap' }}>
+        <span className="bs-meta" style={{ textTransform: 'none' }}>
+          Santo Domingo, República Dominicana — Desarrollo web y software
+        </span>
+        <a href={`mailto:${EMAIL}`} className="bs-link" style={{ textTransform: 'none' }}>
+          {EMAIL}
         </a>
+        <Link to="/privacidad" className="bs-link">
+          Privacidad
+        </Link>
       </div>
-      <div style={{
-        padding: '16px 20px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-      }}>
-        <span className="bs-comment">/* built with intention */</span>
+
+      <div className="bs-cell" style={{ justifyContent: 'flex-end', borderRight: 'none' }}>
+        <span className="bs-comment" aria-hidden="true">/* built with intention */</span>
       </div>
     </footer>
   )

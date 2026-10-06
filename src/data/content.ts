@@ -1,8 +1,32 @@
-import type { Servicio, Proyecto, PasoProceso, PuntoDoloroso } from '../types'
+import type {
+  Servicio,
+  Proyecto,
+  PasoProceso,
+  PuntoDoloroso,
+  Testimonio,
+  ItemProof,
+} from '../types'
+
+export const SITE_URL = 'https://basaltostudio.com'
+export const EMAIL = 'contacto@basaltostudio.com'
 
 export const WHATSAPP_NUMBER = '18098480395'
-export const WHATSAPP_MESSAGE = 'Hola, me interesa un sitio web para mi negocio.'
-export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
+export const WHATSAPP_DISPLAY = '+1 809-848-0395'
+export const WHATSAPP_MESSAGE =
+  'Hola, me interesa un sitio web o una aplicación para mi negocio.'
+
+export function whatsappUrl(message: string = WHATSAPP_MESSAGE): string {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+}
+
+export const WHATSAPP_URL = whatsappUrl()
+
+export const proofItems: ItemProof[] = [
+  { label: 'RD', detail: '— Con base en Santo Domingo' },
+  { label: 'Full-stack', detail: '— Frontend, backend y despliegue' },
+  { label: '2–3 sem.', detail: '— Un sitio web, en vivo' },
+  { label: 'Tuyo', detail: '— Código y dominio a tu nombre' },
+]
 
 export const puntosDolorosos: PuntoDoloroso[] = [
   {
@@ -17,8 +41,8 @@ export const puntosDolorosos: PuntoDoloroso[] = [
   },
   {
     numero: '03',
-    texto: 'Estás perdiendo clientes antes de que te llamen.',
-    comentario: '/* la primera impresión ya pasó */',
+    texto: 'Tu operación vive en WhatsApp y hojas de cálculo. Cada pedido se pierde dos veces.',
+    comentario: '/* el sistema existe. está en tu cabeza. */',
   },
 ]
 
@@ -41,6 +65,12 @@ export const servicios: Servicio[] = [
     descripcion:
       'Una sola página, un solo objetivo. Para campañas, lanzamientos, o cuando necesitas resultados rápido.',
   },
+  {
+    id: 'app',
+    titulo: 'Aplicación a medida',
+    descripcion:
+      'Sistemas internos, portales de clientes, APIs e integraciones — pagos, WhatsApp, facturación. Software que reemplaza el caos.',
+  },
 ]
 
 export const proyectos: Proyecto[] = [
@@ -50,6 +80,8 @@ export const proyectos: Proyecto[] = [
     descripcion:
       'F MAX RD necesitaba llegar a ingenieros y constructoras en todo el país. Construimos un sitio que comunica credibilidad técnica y genera consultas de nuevos clientes.',
     url: 'https://fmaxrd.com',
+    imagen: '/fmax-preview.webp',
+    imagenAlt: 'Página de inicio del sitio web de F MAX RD',
     tags: ['React', 'TypeScript', 'Framer Motion', 'Construcción', 'Santo Domingo'],
   },
 ]
@@ -69,6 +101,27 @@ export const pasosProceso: PasoProceso[] = [
   {
     numero: '03',
     titulo: 'Lanzamos',
-    descripcion: 'Sitio en vivo en 2–3 semanas. Tú quedas dueño de todo.',
+    descripcion:
+      'Un sitio web está en vivo en 2–3 semanas. Una aplicación, según su alcance — con fechas claras desde el día uno. Tú quedas dueño de todo.',
   },
 ]
+
+export const tiposProyecto = [
+  'Sitio web nuevo',
+  'Rediseño',
+  'Landing page',
+  'Aplicación a medida',
+  'No estoy seguro',
+] as const
+
+/**
+ * The testimonial only renders once `nombre` is filled in.
+ * An anonymous quote reads as a placeholder; a named one builds trust.
+ */
+export const testimonio: Testimonio = {
+  cita: 'El sitio que Basalto nos entregó superó lo que esperábamos. Profesional, rápido, y nuestros clientes lo notan inmediatamente.',
+  nombre: '',
+  cargo: '',
+  empresa: 'F MAX RD',
+  ciudad: 'Santo Domingo, RD',
+}

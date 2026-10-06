@@ -2,200 +2,218 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { WHATSAPP_URL } from '../data/content'
+import Section from './Section'
+import {
+  EMAIL,
+  WHATSAPP_DISPLAY,
+  WHATSAPP_URL,
+  tiposProyecto,
+  whatsappUrl,
+} from '../data/content'
+
+const MAX_MENSAJE = 500
 
 const schema = z.object({
-  nombre: z.string().min(2, 'Nombre requerido'),
-  negocio: z.string().min(2, 'Nombre del negocio requerido'),
-  mensaje: z.string().min(10, 'Cuéntame un poco más'),
+  nombre: z.string().trim().min(2, 'Nombre requerido'),
+  negocio: z.string().trim().min(2, 'Nombre del negocio requerido'),
+  tipo: z.enum(tiposProyecto, { message: 'Elige una opción' }),
+  mensaje: z
+    .string()
+    .trim()
+    .min(10, 'Cuéntame un poco más')
+    .max(MAX_MENSAJE, `Máximo ${MAX_MENSAJE} caracteres`),
 })
 
 type FormData = z.infer<typeof schema>
 
-export default function Contacto() {
-  const [waCooldown, setWaCooldown] = useState(false)
-  const [waSeconds, setWaSeconds] = useState(0)
+function componerMensaje(data: FormData): string {
+  return [
+    `Hola, soy ${data.nombre} de ${data.negocio}.`,
+    `Me interesa: ${data.tipo}.`,
+    '',
+    data.mensaje,
+  ].join('\n')
+}
+
+export default function Contacto({ num }: { num: string }) {
+  const [enviado, setEnviado] = useState<FormData | null>(null)
 
   const {
     register,
     handleSubmit,
-    reset,
     watch,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
-  } = useForm<FormData>({ resolver: zodResolver(schema) })
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    defaultValues: { tipo: 'Sitio web nuevo' },
+  })
 
-  const onSubmit = async (_data: FormData) => {
-    reset()
+  const onSubmit = (data: FormData) => {
+    // The form has no backend on purpose: it composes a WhatsApp message
+    // the visitor sends from their own app. A direct link is also shown in
+    // case the browser blocks the new window.
+    window.open(whatsappUrl(componerMensaje(data)), '_blank', 'noopener,noreferrer')
+    setEnviado(data)
   }
 
-  const inputStyle = {
-    fontFamily: 'Courier Prime, Courier New, monospace',
-    fontSize: '11px',
-    letterSpacing: '0.06em',
-    color: 'var(--bs-charcoal)',
-    background: 'var(--bs-base)',
-    border: '1px solid var(--bs-border-v)',
-    borderRadius: 0,
-    padding: '10px 12px',
-    width: '100%',
-    outline: 'none',
-  }
-
-  const labelStyle = {
-    fontSize: '10px',
-    letterSpacing: '0.14em',
-    textTransform: 'uppercase' as const,
-    color: 'var(--bs-mid)',
-    display: 'block',
-    marginBottom: '6px',
-  }
-
-  const errorStyle = {
-    fontSize: '10px',
-    color: '#c0392b',
-    letterSpacing: '0.06em',
-    marginTop: '4px',
-    fontStyle: 'italic',
-  }
+  const mensajeActual = watch('mensaje') ?? ''
 
   return (
-    <div
+    <Section
       id="contacto"
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '180px 3px 1fr',
-        borderBottom: '2px solid var(--bs-border-h)',
-      }}
+      num={num}
+      label="¿Listo para crecer?"
+      tag={<>&lt;section<br /> id="contacto"&gt;</>}
+      comment={<>/* el botón de<br /> WhatsApp<br /> cierra más<br /> que cualquier<br /> formulario */</>}
     >
-      <div className="bs-sidebar" style={{ justifyContent: 'space-between' }}>
-        <div>
-          <div className="bs-index-num">§ 07</div>
-          <div className="bs-section-tag" style={{ marginTop: '8px' }}>
-            &lt;section<br />id="contacto"&gt;
-          </div>
+      <div className="bs-inner-grid-2">
+        <div style={{ padding: '32px' }}>
+          <dl>
+            <dt className="bs-label">Ubicación</dt>
+            <dd className="bs-copy" style={{ marginBottom: '24px' }}>
+              Santo Domingo, República Dominicana
+            </dd>
+
+            <dt className="bs-label">WhatsApp</dt>
+            <dd className="bs-copy" style={{ marginBottom: '24px' }}>
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+                {WHATSAPP_DISPLAY}
+              </a>
+            </dd>
+
+            <dt className="bs-label">Correo</dt>
+            <dd className="bs-copy" style={{ marginBottom: '24px' }}>
+              <a href={`mailto:${EMAIL}`} style={{ textDecoration: 'none' }}>
+                {EMAIL}
+              </a>
+            </dd>
+
+            <dt className="bs-label">Disponibilidad</dt>
+            <dd className="bs-copy" style={{ marginBottom: '32px' }}>
+              Proyectos nuevos — abierto
+            </dd>
+          </dl>
+
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="bs-btn">
+            Escribir por WhatsApp →
+          </a>
         </div>
-        <div className="bs-comment">
-          /* el botón de<br />WhatsApp<br />cierra más<br />que cualquier<br />formulario */
-        </div>
-      </div>
 
-      <div className="bs-slit" />
-
-      <div className="bs-section-body-mobile" style={{ padding: '24px 40px 40px' }}>
-        <div className="bs-divider-label">— ¿Listo para crecer? —</div>
-
-        <div className="bs-inner-grid-2" style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          border: '1px solid var(--bs-border-v)',
-        }}>
-          <div style={{
-            padding: '32px',
-            borderRight: '1px solid var(--bs-border-v)',
-          }}>
-            <div style={{ marginBottom: '24px' }}>
-              <div style={labelStyle}>Ubicación</div>
-              <div style={{ fontSize: '12px', letterSpacing: '0.06em' }}>Santo Domingo, República Dominicana</div>
-            </div>
-            <div style={{ marginBottom: '24px' }}>
-              <div style={labelStyle}>WhatsApp</div>
-              <div style={{ fontSize: '12px', letterSpacing: '0.06em' }}>+1 809-848-0395</div>
-            </div>
-            <div style={{ marginBottom: '32px' }}>
-              <div style={labelStyle}>Disponibilidad</div>
-              <div style={{ fontSize: '12px', letterSpacing: '0.06em' }}>Proyectos nuevos — abierto</div>
-            </div>
-            <button
-              className="bs-btn"
-              style={{ textDecoration: 'none', display: 'inline-block', cursor: waCooldown ? 'not-allowed' : 'pointer', opacity: waCooldown ? 0.5 : 1 }}
-              disabled={waCooldown}
-              onClick={() => {
-                if (waCooldown) return
-                window.open(WHATSAPP_URL, '_blank')
-                setWaCooldown(true)
-                setWaSeconds(30)
-                const interval = setInterval(() => {
-                  setWaSeconds(prev => {
-                    if (prev <= 1) {
-                      clearInterval(interval)
-                      setWaCooldown(false)
-                      return 0
-                    }
-                    return prev - 1
-                  })
-                }, 1000)
-              }}
-            >
-              {waCooldown ? `Espera ${waSeconds}s...` : 'Escribir por WhatsApp →'}
-            </button>
-          </div>
-
-          <div style={{ padding: '32px' }}>
-            {isSubmitSuccessful ? (
-              <div style={{ padding: '20px 0' }}>
-                <p style={{ fontSize: '12px', lineHeight: 1.9, letterSpacing: '0.04em' }}>
-                  Mensaje recibido. Te escribo pronto.
-                </p>
-                <p className="bs-comment" style={{ marginTop: '8px' }}>/* enviado correctamente */</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                <div>
-                  <label style={labelStyle}>Nombre</label>
-                  <input {...register('nombre')} style={inputStyle} placeholder="Tu nombre" />
-                  {errors.nombre && <p style={errorStyle}>{errors.nombre.message}</p>}
-                </div>
-                <div>
-                  <label style={labelStyle}>Negocio</label>
-                  <input {...register('negocio')} style={inputStyle} placeholder="Nombre de tu empresa" />
-                  {errors.negocio && <p style={errorStyle}>{errors.negocio.message}</p>}
-                </div>
-                <div>
-                  <label style={labelStyle}>Mensaje</label>
-                  <textarea
-                    {...register('mensaje')}
-                    style={{ ...inputStyle, minHeight: '100px', resize: 'vertical' }}
-                    placeholder="Cuéntame de tu proyecto..."
-                    maxLength={500}
-                    onKeyDown={(e) => { if (e.key === 'Enter') e.preventDefault() }}
-                    onPaste={(e) => {
-                      e.preventDefault()
-                      const text = e.clipboardData.getData('text/plain')
-                        .replace(/[\r\n]+/g, ' ')
-                        .slice(0, 500)
-                      const target = e.currentTarget
-                      const start = target.selectionStart ?? 0
-                      const end = target.selectionEnd ?? 0
-                      const current = target.value
-                      const newVal = (current.slice(0, start) + text + current.slice(end)).slice(0, 500)
-                      target.value = newVal
-                      target.dispatchEvent(new Event('input', { bubbles: true }))
-                    }}
-                  />
-                  {errors.mensaje && <p style={errorStyle}>{errors.mensaje.message}</p>}
-                  <p style={{
-                    fontSize: '10px',
-                    letterSpacing: '0.06em',
-                    color: 'var(--bs-mid)',
-                    textAlign: 'right',
-                    marginTop: '4px',
-                  }}>
-                    {watch('mensaje')?.length ?? 0} / 500
-                  </p>
-                </div>
-                <button
-                  type="submit"
+        <div style={{ padding: '32px' }}>
+          {enviado ? (
+            <div style={{ padding: '20px 0' }} role="status">
+              <p className="bs-copy" style={{ marginBottom: '8px' }}>
+                Tu mensaje está listo en WhatsApp.
+              </p>
+              <p className="bs-copy-soft" style={{ marginBottom: '24px' }}>
+                Si no se abrió una ventana nueva, usa uno de estos enlaces.
+              </p>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 16px', alignItems: 'center' }}>
+                <a
+                  href={whatsappUrl(componerMensaje(enviado))}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="bs-btn"
-                  disabled={isSubmitting}
-                  style={{ alignSelf: 'flex-start' }}
                 >
-                  {isSubmitting ? 'Enviando...' : 'Enviar mensaje →'}
+                  Abrir en WhatsApp →
+                </a>
+                <a
+                  href={`mailto:${EMAIL}?subject=${encodeURIComponent(`Proyecto: ${enviado.tipo} — ${enviado.negocio}`)}&body=${encodeURIComponent(componerMensaje(enviado))}`}
+                  className="bs-btn bs-btn-secondary"
+                >
+                  Enviar por correo
+                </a>
+                <button type="button" className="bs-link" onClick={() => setEnviado(null)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
+                  Editar mensaje
                 </button>
-              </form>
-            )}
-          </div>
+              </div>
+              <p className="bs-comment" style={{ marginTop: '16px' }}>/* nada se guarda en este sitio */</p>
+            </div>
+          ) : (
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              noValidate
+              style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
+            >
+              <div>
+                <label htmlFor="contacto-nombre" className="bs-label">Nombre</label>
+                <input
+                  id="contacto-nombre"
+                  className="bs-input"
+                  placeholder="Tu nombre"
+                  autoComplete="name"
+                  aria-invalid={errors.nombre ? 'true' : undefined}
+                  aria-describedby={errors.nombre ? 'contacto-nombre-error' : undefined}
+                  {...register('nombre')}
+                />
+                {errors.nombre && (
+                  <p id="contacto-nombre-error" className="bs-error">{errors.nombre.message}</p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="contacto-negocio" className="bs-label">Negocio</label>
+                <input
+                  id="contacto-negocio"
+                  className="bs-input"
+                  placeholder="Nombre de tu empresa"
+                  autoComplete="organization"
+                  aria-invalid={errors.negocio ? 'true' : undefined}
+                  aria-describedby={errors.negocio ? 'contacto-negocio-error' : undefined}
+                  {...register('negocio')}
+                />
+                {errors.negocio && (
+                  <p id="contacto-negocio-error" className="bs-error">{errors.negocio.message}</p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="contacto-tipo" className="bs-label">¿Qué necesitas?</label>
+                <select
+                  id="contacto-tipo"
+                  className="bs-input"
+                  aria-invalid={errors.tipo ? 'true' : undefined}
+                  aria-describedby={errors.tipo ? 'contacto-tipo-error' : undefined}
+                  {...register('tipo')}
+                >
+                  {tiposProyecto.map((tipo) => (
+                    <option key={tipo} value={tipo}>
+                      {tipo}
+                    </option>
+                  ))}
+                </select>
+                {errors.tipo && (
+                  <p id="contacto-tipo-error" className="bs-error">{errors.tipo.message}</p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="contacto-mensaje" className="bs-label">Mensaje</label>
+                <textarea
+                  id="contacto-mensaje"
+                  className="bs-input"
+                  style={{ minHeight: '120px', resize: 'vertical' }}
+                  placeholder="Cuéntame de tu proyecto..."
+                  maxLength={MAX_MENSAJE}
+                  aria-invalid={errors.mensaje ? 'true' : undefined}
+                  aria-describedby={errors.mensaje ? 'contacto-mensaje-error contacto-mensaje-count' : 'contacto-mensaje-count'}
+                  {...register('mensaje')}
+                />
+                {errors.mensaje && (
+                  <p id="contacto-mensaje-error" className="bs-error">{errors.mensaje.message}</p>
+                )}
+                <p id="contacto-mensaje-count" className="bs-meta" style={{ textAlign: 'right', marginTop: '4px', textTransform: 'none' }}>
+                  {mensajeActual.length} / {MAX_MENSAJE}
+                </p>
+              </div>
+
+              <button type="submit" className="bs-btn" style={{ alignSelf: 'flex-start' }}>
+                Enviar por WhatsApp →
+              </button>
+            </form>
+          )}
         </div>
       </div>
-    </div>
+    </Section>
   )
 }

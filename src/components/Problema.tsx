@@ -1,61 +1,29 @@
+import Section from './Section'
 import { puntosDolorosos } from '../data/content'
 
-export default function Problema() {
+export default function Problema({ num }: { num: string }) {
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: '180px 3px 1fr',
-      borderBottom: '2px solid var(--bs-border-h)',
-    }}>
-      <div className="bs-sidebar" style={{ justifyContent: 'space-between' }}>
-        <div>
-          <div className="bs-index-num">§ 02</div>
-          <div className="bs-section-tag" style={{ marginTop: '8px' }}>
-            &lt;section<br />id="problema"&gt;
-          </div>
-        </div>
-        <div className="bs-comment">
-          /* el cliente<br />siempre lo sabe.<br />pero no lo dice. */
-        </div>
-      </div>
-
-      <div className="bs-slit bs-slit-amber" />
-
-      <div className="bs-section-body-mobile" style={{ padding: '24px 40px 40px' }}>
-        <div className="bs-divider-label">— El problema —</div>
-        <div className="bs-inner-grid" style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          border: '1px solid var(--bs-border-v)',
-        }}>
-          {puntosDolorosos.map((punto, i) => (
-            <div key={punto.numero} style={{
-              padding: '28px 24px',
-              borderRight: i < puntosDolorosos.length - 1 ? '1px solid var(--bs-border-v)' : 'none',
-            }}>
-              <span style={{
-                fontSize: '10px',
-                letterSpacing: '0.12em',
-                color: 'var(--bs-border-v)',
-                display: 'block',
-                marginBottom: '16px',
-              }}>
-                {punto.numero} —
-              </span>
-              <p style={{
-                fontSize: '12px',
-                lineHeight: 1.9,
-                letterSpacing: '0.04em',
-              }}>
-                {punto.texto}
-              </p>
-              <p className="bs-comment" style={{ marginTop: '12px' }}>
-                {punto.comentario}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    <Section
+      id="problema"
+      num={num}
+      label="El problema"
+      amber
+      tag={<>&lt;section<br /> id="problema"&gt;</>}
+      comment={<>/* el cliente<br /> siempre lo sabe.<br /> pero no lo dice. */</>}
+    >
+      <ul className="bs-inner-grid" style={{ listStyle: 'none' }}>
+        {puntosDolorosos.map((punto) => (
+          <li key={punto.numero} style={{ padding: '28px 24px' }}>
+            <span className="bs-index-num" style={{ display: 'block', marginBottom: '16px' }} aria-hidden="true">
+              {punto.numero} —
+            </span>
+            <p className="bs-copy">{punto.texto}</p>
+            <p className="bs-comment" style={{ marginTop: '12px' }}>
+              {punto.comentario}
+            </p>
+          </li>
+        ))}
+      </ul>
+    </Section>
   )
 }

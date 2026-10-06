@@ -1,44 +1,19 @@
-export default function ProofBar() {
-  const items = [
-    { label: '01', detail: '— Proyecto completado' },
-    { label: 'RD', detail: '— Con base en Santo Domingo' },
-    { label: 'React', detail: '— Stack moderno' },
-    { label: '2–3 sem.', detail: '— Tiempo de entrega' },
-  ]
+import { proofItems } from '../data/content'
 
+export default function ProofBar() {
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: '180px 1fr',
-      borderBottom: '2px solid var(--bs-border-h)',
-    }}>
-      <div style={{
-        padding: '16px 20px',
-        borderRight: '1px solid var(--bs-border-v)',
-        display: 'flex',
-        alignItems: 'center',
-      }}>
-        <span className="bs-comment">/* index */</span>
+    <div className="bs-proofbar">
+      <div className="bs-cell">
+        <span className="bs-comment" aria-hidden="true">/* index */</span>
       </div>
-      <div style={{
-        padding: '16px 40px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '40px',
-        flexWrap: 'wrap',
-      }}>
-        {items.map((item) => (
-          <div key={item.label} style={{
-            fontSize: '10px',
-            letterSpacing: '0.12em',
-            color: 'var(--bs-mid)',
-            textTransform: 'uppercase',
-          }}>
-            <span style={{ color: 'var(--bs-charcoal)', fontWeight: 700 }}>{item.label}</span>
+      <ul className="bs-proof-list" aria-label="En resumen">
+        {proofItems.map((item) => (
+          <li key={item.label} className="bs-meta">
+            <span style={{ color: 'var(--bs-charcoal)', fontWeight: 700 }}>{item.label}</span>{' '}
             {item.detail}
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   )
 }
